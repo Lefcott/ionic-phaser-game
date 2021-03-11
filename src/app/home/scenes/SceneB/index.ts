@@ -4,7 +4,7 @@ export default class GameScene extends Phaser.Scene {
   left: Phaser.Input.Keyboard.Key;
 
   constructor() {
-    super({ key: 'main' });
+    super({ key: 'SceneB', active: true });
   }
 
   preload() {
@@ -18,16 +18,14 @@ export default class GameScene extends Phaser.Scene {
     this.player.setOrigin(0.5);
     this.player.setCollideWorldBounds(true);
     this.player.setBounce(0.4);
-    // this.player.setVelocity(10, 0);
-    // this.input.keyboard.on('keydown-RIGHT', (event) => {
-    //   this.player.setVelocityX(200);
-    // });
-    // this.input.keyboard.on('keyup-RIGHT', (event) => {
-    //   this.player.setVelocityX(0);
-    // });
-    // this.cursor = this.input.keyboard.createCursorKeys();
     this.right = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.left = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    const graphics = this.add.graphics();
+
+    graphics.fillStyle(0xff3300, 1);
+    graphics.fillRect(100, 200, 600, 300);
+    graphics.fillRect(200, 100, 100, 100);
+    this.add.text(220, 100, 'B', { font: '96px Courier', color: '#ffffff' });
   }
 
   update() {

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Phaser from 'phaser';
 
-import HomeScene from './scenes/Home';
+import SceneA from './scenes/SceneA';
+import SceneB from './scenes/SceneB';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,7 @@ export class HomePage implements OnInit {
         pixelArt: true,
       },
       parent: 'game',
-      scene: HomeScene,
+      scene: [SceneA, SceneB],
     };
   }
 
