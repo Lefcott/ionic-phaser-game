@@ -1,4 +1,6 @@
 import Player from '../../objects/Player';
+import Ball from '../../objects/Ball';
+import Separator from '../../objects/Separator';
 
 import constants from './constants';
 
@@ -12,11 +14,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(
-      +this.game.config.width / 2,
-      +this.game.config.height / 2,
-      'separator'
-    );
+    new Separator(this);
     this.player1 = new Player(
       this,
       constants.playerMargin,
@@ -29,15 +27,12 @@ export default class GameScene extends Phaser.Scene {
       +this.game.config.height / 2,
       'player2'
     );
-    this.ball = this.physics.add.image(
-      +this.game.config.width / 2,
-      +this.game.config.height / 2,
-      'ball'
-    );
-    this.ball.setVelocityX(-180);
+    this.ball = new Ball(this);
 
-    this.physics.add.collider(this.ball, this.player1, null, this.collide);
-    this.physics.add.collider(this.ball, this.player2, null, this.collide);
+    this.physics.add.collider(this.ball, this.player1, this.collide);
+    this.physics.add.collider(this.ball, this.player2, this.collide);
+
+    this.physics.world.setBoundsCollision(false, false, true, true);
   }
 
   update() {}
