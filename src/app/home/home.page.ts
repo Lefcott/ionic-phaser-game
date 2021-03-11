@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Phaser from 'phaser';
 
-import SceneA from './scenes/SceneA';
-import SceneB from './scenes/SceneB';
+import Bootloader from './bootloader';
+import Play from './scenes/Play';
 
 @Component({
   selector: 'app-home',
@@ -21,16 +21,16 @@ export class HomePage implements OnInit {
       physics: {
         default: 'arcade',
         arcade: {
-          gravity: {
-            y: 500,
-          },
+          // gravity: {
+          //   y: 500,
+          // },
         },
       },
       render: {
         pixelArt: true,
       },
       parent: 'game',
-      scene: [SceneA, SceneB],
+      scene: [Bootloader, Play],
     };
   }
 
