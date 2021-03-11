@@ -5,9 +5,9 @@ import Separator from '../../objects/Separator';
 import constants from './constants';
 
 export default class GameScene extends Phaser.Scene {
-  player1: Phaser.GameObjects.Image;
-  player2: Phaser.GameObjects.Image;
-  ball: Phaser.Physics.Arcade.Image;
+  player1: Player;
+  player2: Player;
+  ball: Ball;
 
   constructor() {
     super({ key: 'Play' });
@@ -29,15 +29,40 @@ export default class GameScene extends Phaser.Scene {
     );
     this.ball = new Ball(this);
 
-    this.physics.add.collider(this.ball, this.player1, this.collide);
-    this.physics.add.collider(this.ball, this.player2, this.collide);
+    this.physics.add.collider(
+      this.ball,
+      this.player1,
+      this.collide,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.ball,
+      this.player2,
+      this.collide,
+      null,
+      this
+    );
 
     this.physics.world.setBoundsCollision(false, false, true, true);
   }
 
-  update() {}
+  update() {
+    if (this.ball.x < 0 || this.ball.x > this.game.config.width) {
+      this.ball.setPosition(this.ball.initialX, this.ball.initialY);
+      this.ball.setVelocityY(0);
+    }
+
+    if (this.input.activePointer.isDown) {
+      const isLeft =
+        this.input.activePointer.worldX < +this.game.config.width / 2;
+      this.player1.setVelocityY(isLeft ? 300 : -300);
+    } else {
+      this.player1.setVelocityY(0);
+    }
+  }
 
   collide() {
-    console.log('collide');
+    this.ball.setVelocityY(Phaser.Math.Between(-120, 120));
   }
 }
