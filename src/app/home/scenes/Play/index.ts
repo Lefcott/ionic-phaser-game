@@ -48,6 +48,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update() {
+    this.player2.y = this.ball.y;
+
     if (this.ball.x < 0 || this.ball.x > this.game.config.width) {
       this.ball.setPosition(this.ball.initialX, this.ball.initialY);
       this.ball.setVelocityY(0);
